@@ -95,6 +95,7 @@ namespace Alumnos.Core.Services
                 if (student != null)
                 {
                     student.Name = dto.Name;
+                    student.Age = dto.Age;
 
                     await _uow.SaveChangesAsync();
 

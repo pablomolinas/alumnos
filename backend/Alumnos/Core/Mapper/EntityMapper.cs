@@ -10,18 +10,10 @@ namespace Alumnos.Core.Mapper
         {
             var student =  new Student
             {
-                Name = dto.Name
+                Name = dto.Name,
+                Age = dto.Age
             };
-            /*
-            var ss = new List<StudentSubject>();
-            if (dto.Subjects != null)
-            {
-                foreach (var d in dto.Subjects)
-                {
-                    ss.Add(new StudentSubject() { Subject = d });
-                }
-            }
-            student.StudentsSubjects = ss;*/
+            
             
             return student;
         }
@@ -39,7 +31,8 @@ namespace Alumnos.Core.Mapper
             var dto = new StudentDtoForDisplay
             {
                 Id = student.Id,
-                Name = student.Name,                
+                Name = student.Name,
+                Age = student.Age
             };
 
             var subjects = new List<Subject>();
