@@ -6,7 +6,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 
-const StudentsTable = ({students, editStudent, deleteStudent}) => {
+const StudentsTable = ({students, isLoading, editStudent, deleteStudent}) => {
     
   const columns = [
     { field: 'id', headerName: '#', maxWidth: 150, minWidth: 100, flex: 1 },
@@ -45,7 +45,7 @@ const StudentsTable = ({students, editStudent, deleteStudent}) => {
     <DataTable
       rows={students}
       columns={columns}
-      loading={!students.length}
+      loading={isLoading}
     />
   )
 }

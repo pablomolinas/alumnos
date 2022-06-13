@@ -10,7 +10,7 @@ import BasicSnackbar from '../../components/common/BasicSnackbar/BasicSnackbar';
 const Alumnos = () => {
 
   const [open, setOpen] = useState(false); // modal new
-  const [students, isError, addStudent, editStudent, deleteStudent] = useStudents();
+  const [students, isLoading, isError, addStudent, editStudent, deleteStudent] = useStudents();
   const [subjects] = useSubjects();
   const [currentStudent, setCurrentStudent] = useState(null);
   const [openMessage, setOpenMessage] = useState(false);
@@ -21,6 +21,14 @@ const Alumnos = () => {
       setCurrentStudent(null);
     }
   }, [open])
+
+  useEffect(() => {
+    if(isError){
+      setOpenMessage(true);
+      setTimeout(() => setOpenMessage(false), 5000);        
+    }
+
+  }, [isError])
 
   const handleEditStudent = (student) => {
     
@@ -57,6 +65,8 @@ const Alumnos = () => {
       
       <StudentsTable
         students={students}
+        isLoading={isLoading}
+
         editStudent={handleEditStudent}
         deleteStudent={handleDeleteStudent}
       />
@@ -70,7 +80,7 @@ const Alumnos = () => {
         saveStudent={handleSaveStudent}
       />
       <BasicSnackbar 
-        open={false} 
+        open={openMessage} 
         onClose={() => setOpenMessage(false)} 
         severity={isError ? "error" : "success"} 
         message={isError ? "La operacion no pudo completarse." : "Operacion completada exitosamente." }

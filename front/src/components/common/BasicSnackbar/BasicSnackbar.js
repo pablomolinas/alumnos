@@ -12,7 +12,7 @@ const BasicSnackbar = ({open, onClose, severity, message}) => {
     <>      
       <Snackbar 
         open={open} 
-        autoHideDuration={6000} 
+        autoHideDuration={5000} 
         onClose={onClose}
       >
         <Alert 

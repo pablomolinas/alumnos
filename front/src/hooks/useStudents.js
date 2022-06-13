@@ -4,7 +4,7 @@ import studentsService from '../services/studentsService';
 
 const useStudents = () => {
   const [students, setStudents] = useState([]);
-  //const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   
   useEffect( () =>{
@@ -15,15 +15,16 @@ const useStudents = () => {
 
   const fetchStudents = () => {
     
-    //setIsLoading(true);
+    setIsLoading(true);
     setIsError(false);
 
     studentsService.get()
       .then(data => {
         setStudents(data);
       })
-      //.finally(() => setIsLoading(false))
+      .finally(() => setIsLoading(false))
       .catch(e => {
+        setStudents([]);
         console.log(`error: ${e}`);
         setIsError(true);
       });
@@ -70,6 +71,7 @@ const useStudents = () => {
 
   return [
     students,
+    isLoading,
     isError,
 
     addStudent,
