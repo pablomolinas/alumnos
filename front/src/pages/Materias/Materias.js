@@ -3,7 +3,7 @@ import GridWrapper from '../../components/common/GridWrapper/GridWrapper';
 import SubjectsTable from '../../components/SubjectsTable/SubjectsTable';
 import useSubjects from '../../hooks/useSubjects';
 import CommonButton from '../../components/common/CommonButton/CommonButton';
-import SubjectModal from '../../components/Modals/SubjectModal/SubjecModal';
+import SubjectModal from '../../components/Modals/SubjectModal/SubjectModal';
 import BasicSnackbar from '../../components/common/BasicSnackbar/BasicSnackbar';
 
 const Database = () => {

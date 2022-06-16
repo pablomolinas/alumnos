@@ -34,7 +34,7 @@ const StudentModal = ({open, onClose, currentStudent, saveStudent, subjects}) =>
         setValues(initialFormValues);        
       }
 
-    }, [open]);
+    }, [open, currentStudent]);
     
     const getContent = () => (
         <Box sx={studentStyles.inputFields}>    

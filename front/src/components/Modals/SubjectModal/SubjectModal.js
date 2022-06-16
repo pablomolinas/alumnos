@@ -29,7 +29,7 @@ const SubjectModal = ({open, onClose, currentSubject, saveSubject}) => {
         setValues(initialFormValues);        
       }
 
-    }, [open]);
+    }, [open, currentSubject]);
     
     const getContent = () => (
         <Box sx={subjectStyles.inputFields}>                      
