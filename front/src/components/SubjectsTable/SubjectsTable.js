@@ -5,13 +5,18 @@ import {
 } from '@mui/x-data-grid-pro';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import { removeSecondsFromTimeString } from '../../helpers/time';
 
 const SubjectsTable = ({subjects, isLoading, editSubject, deleteSubject}) => {
   
     
   const columns = [
     { field: 'id', headerName: '#', maxWidth: 150, minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Nombre', minWidth: 300, flex: 1 },
+    { field: 'name', headerName: 'Nombre', minWidth: 250, flex: 1 },
+    { field: 'maxStudents', headerName: 'Cupo maximo', minWidth: 100, flex: 1 },
+    { field: 'totalStudents', headerName: 'Inscriptos', minWidth: 100, flex: 1 },
+    { field: 'start', headerName: 'Inicio', minWidth: 100, flex: 1, valueFormatter: (params) => removeSecondsFromTimeString(params.value) },
+    { field: 'end', headerName: 'Final', minWidth: 100, flex: 1, valueFormatter: (params) => removeSecondsFromTimeString(params.value) },
     {
       field: 'actions',
       type: 'actions',

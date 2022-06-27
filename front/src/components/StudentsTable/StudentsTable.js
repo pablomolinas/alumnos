@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 const StudentsTable = ({students, isLoading, editStudent, deleteStudent}) => {
     
   const columns = [
-    { field: 'id', headerName: '#', maxWidth: 150, minWidth: 100, flex: 1 },
+    { field: 'fileNumber', headerName: 'Legajo', maxWidth: 150, minWidth: 100, flex: 1 },
     { field: 'name', headerName: 'Nombre', minWidth: 300, flex: 1 },
     {
       field: 'actions',

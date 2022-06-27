@@ -5,6 +5,7 @@ const useSubjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [subjectTotalStudents, setSubjectTotalStudents] = useState(null);
 
   useEffect(() => {
     
@@ -19,12 +20,12 @@ const useSubjects = () => {
 
     subjectsService.get()
       .then(data => {
-        
         setSubjects(data);
       })
       .finally(() => setIsLoading(false))
       .catch(error => {
         setSubjects([]);
+        setIsError(true);
         console.log(error)
       });
 
@@ -38,7 +39,7 @@ const useSubjects = () => {
         fetchSubjects();
       })
       .catch(error => {
-        console.log(`error: ${error}`);
+        console.log(error);
         setIsError(true);
       });
     
@@ -51,7 +52,7 @@ const useSubjects = () => {
         fetchSubjects();
       })
       .catch(error => {
-        console.log(`error: ${error}`);
+        console.log(error);
         setIsError(true);
       });    
   }
@@ -63,21 +64,39 @@ const useSubjects = () => {
           if(result) fetchSubjects();
       })
       .catch(error => {
-        console.log(`error: ${error}`);
+        console.log(error);
         setIsError(true);
       });
 
   }
 
-  return [
+  const getTotalStudentsBySubjectId = (subjectId, newValue) => {
+    subjectsService.getTotalStudents(subjectId)
+      .then(result => {
+        setSubjectTotalStudents({
+          id: subjectId, 
+          totalStudents: result,
+          newValue // valor recibido por el form, pretende ser el nuevo maximo
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        setIsError(true);
+      })
+  }
+
+  return {
       subjects,
       isLoading,
       isError,
+      subjectTotalStudents,
 
       addSubject,
       editSubject,
       deleteSubject,
-    ]
+      fetchSubjects,
+      getTotalStudentsBySubjectId,
+  }
 }
 
 export default useSubjects

@@ -7,9 +7,14 @@ class StudentsService {
   
     const url = combineUrl(API_URL, "students");
     const response = await fetch(url);
+
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
+
     const json = await response.json();        
     
-    if(json && json.success){
+    if(json?.success){
         return json.data;
     }
   
@@ -20,13 +25,47 @@ class StudentsService {
     
     const url = combineUrl(API_URL, `students/${id}`);
     const response = await fetch(url);
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();        
     
-    if(json && json.success){
+    if(json?.success){
         return json.data;
     }
   
     return {}
+  }
+
+  getByDni = async (dni) => {
+    
+    const url = combineUrl(API_URL, `students/dni/${dni}`);
+    const response = await fetch(url);
+    if(response.status >= 500){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
+    const json = await response.json();        
+    
+    if(json?.success){
+        return json.data;
+    }
+  
+    return null
+  }
+
+  getByFileNumber = async (fileNumber) => {
+    
+    const url = combineUrl(API_URL, `students/fileNumber/${fileNumber}`);
+    const response = await fetch(url);
+    if(response.status >= 500){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
+    const json = await response.json();        
+    
+    if(json?.success){
+        return json.data;
+    }
+    return null
   }
   
   post = async (student) => {
@@ -38,9 +77,13 @@ class StudentsService {
                                     },
                                     body: JSON.stringify(student)
                                 });
+    
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();
     
-    return (json && json.success) ? true : false;
+    return (json?.success) ? true : false;
   }
   
   put = async (student) => {
@@ -54,9 +97,13 @@ class StudentsService {
                                     },
                                     body: JSON.stringify(student)
                                 });
+    
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();
     
-    return (json && json.success) ? true : false;
+    return (json?.success) ? true : false;
   }
   
   delete = async (id) => {
@@ -64,9 +111,13 @@ class StudentsService {
     const response = await fetch(url, {
                                     method: 'DELETE',
                                 });
+
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();
     
-    return (json && json.success) ? true : false;
+    return (json?.success) ? true : false;
   }
 
 }

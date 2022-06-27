@@ -7,9 +7,12 @@ class SubjectsService {
   
     const url = combineUrl(API_URL, "subjects");
     const response = await fetch(url);
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();        
     
-    if(json && json.success){
+    if(json?.success){
         return json.data;
     }
     
@@ -20,13 +23,32 @@ class SubjectsService {
     
     const url = combineUrl(API_URL, `subjects/${id}`);
     const response = await fetch(url);
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();        
     
-    if(json && json.success){
+    if(json?.success){
         return json.data;
     }
   
     return {}
+  }
+
+  getTotalStudents = async (subjectId) => {
+    
+    const url = combineUrl(API_URL, `subjects/totalStudents/${subjectId}`);
+    const response = await fetch(url);
+    if(response.status >= 500){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
+    const json = await response.json();        
+    
+    if(json?.success){
+        return json.data;
+    }
+  
+    return null
   }
   
   post = async (subject) => {
@@ -38,9 +60,12 @@ class SubjectsService {
                                     },
                                     body: JSON.stringify(subject)
                                 });
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }    
     const json = await response.json();
     
-    return (json && json.success) ? true : false;
+    return (json?.success) ? true : false;
   }
   
   put = async (subject) => {
@@ -54,9 +79,12 @@ class SubjectsService {
                                     },
                                     body: JSON.stringify(subject)
                                 });
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();
     
-    return (json && json.success) ? true : false;
+    return (json?.success) ? true : false;
   }
   
   delete = async (id) => {
@@ -64,9 +92,12 @@ class SubjectsService {
     const response = await fetch(url, {
                                     method: 'DELETE',
                                 });
+    if(!response.ok){
+      throw new Error(`${response.status} ${response.statusText}, ${url}`);
+    }
     const json = await response.json();
     
-    return (json && json.success) ? true : false;
+    return (json?.success) ? true : false;
   }
 }
 

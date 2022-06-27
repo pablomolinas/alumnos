@@ -6,7 +6,7 @@ import { modalStyles } from './styles';
 import CommonButton from '../CommonButton/CommonButton';
 
 
-const BasicModal = ({open, onClose, title, subTitle, content, onSubmit}) => {        
+const BasicModal = ({open, onClose, title, subTitle, content, onSubmit, disableSubmit}) => {        
    
   return (     
     <Modal      
@@ -29,10 +29,13 @@ const BasicModal = ({open, onClose, title, subTitle, content, onSubmit}) => {
           <CommonButton
             variant="contained"
             onClick={onSubmit}
+            disabled={disableSubmit}
           >
             Submit
           </CommonButton>
-          <CommonButton onClick={onClose}>Cancel</CommonButton>
+          <CommonButton 
+            onClick={onClose}            
+          >Cancel</CommonButton>
         </Box>
       </Box>
     </Modal>

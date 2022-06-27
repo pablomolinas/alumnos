@@ -6,7 +6,7 @@ export const studentStyles = {
           marginBottom: '15px',
           color: '#fff',
           '.MuiTextField-root': {
-              marginBottom: '30px',
+              marginBottom: '40px',
             }
       
     }

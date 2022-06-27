@@ -8,7 +8,7 @@ import BasicSnackbar from '../../components/common/BasicSnackbar/BasicSnackbar';
 
 const Database = () => {
   const [open, setOpen] = useState(false); // modal new
-  const [subjects, isLoading, isError, addSubject, editSubject, deleteSubject] = useSubjects();
+  const {subjects, isLoading, isError, addSubject, editSubject, deleteSubject} = useSubjects();
   const [currentSubject, setCurrentSubject] = useState(null);
   const [openMessage, setOpenMessage] = useState(false);
 

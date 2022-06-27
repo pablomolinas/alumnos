@@ -6,12 +6,15 @@ const useStudents = () => {
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [studentDni, setStudentDni] = useState(null);
+  const [studentFileNumber, setStudentFileNumber] = useState(null);  
   
   useEffect( () =>{
 
     fetchStudents();
-    
+
   }, [])
+  //useEffect(() => { console.log(studentDni) }, [studentDni]);
 
   const fetchStudents = () => {
     
@@ -25,7 +28,7 @@ const useStudents = () => {
       .finally(() => setIsLoading(false))
       .catch(e => {
         setStudents([]);
-        console.log(`error: ${e}`);
+        console.log(e);
         setIsError(true);
       });
   }
@@ -38,7 +41,7 @@ const useStudents = () => {
         fetchStudents();
       })
       .catch(error => {
-        console.log(`error: ${error}`);
+        console.log(error);
         setIsError(true);
       });
     
@@ -51,7 +54,7 @@ const useStudents = () => {
         fetchStudents();
       })
       .catch(error => {
-        console.log(`error: ${error}`);
+        console.log(error);
         setIsError(true);
       });    
   }
@@ -63,21 +66,57 @@ const useStudents = () => {
           if(result) fetchStudents();
       })
       .catch(error => {
-        console.log(`error: ${error}`);
+        console.log(error);
         setIsError(true);
       });
 
   }
 
-  return [
+  const getStudentByDni = (dni) => {
+    
+    setIsLoading(true);
+    setStudentDni(null);
+    studentsService.getByDni(dni)
+      .then(result => {
+
+        setStudentDni(result);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setIsError(true);
+      });
+  }
+
+  const getStudentByFileNumber = (fileNumber) => {
+    
+    setIsLoading(true);
+    setStudentFileNumber(null);
+    studentsService.getByFileNumber(fileNumber)
+      .then(result => {        
+
+        setStudentFileNumber(result);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setIsError(true);
+      });
+  }
+
+  return {
     students,
     isLoading,
     isError,
+    studentDni,
+    studentFileNumber,
 
     addStudent,
     editStudent,
     deleteStudent,
-  ]
+    getStudentByDni,
+    getStudentByFileNumber,
+  }
 }
 
 export default useStudents

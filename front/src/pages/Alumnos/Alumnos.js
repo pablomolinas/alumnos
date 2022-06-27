@@ -10,8 +10,8 @@ import BasicSnackbar from '../../components/common/BasicSnackbar/BasicSnackbar';
 const Alumnos = () => {
 
   const [open, setOpen] = useState(false); // modal new
-  const [students, isLoading, isError, addStudent, editStudent, deleteStudent] = useStudents();
-  const [subjects] = useSubjects();
+  const {students, isLoading, isError, addStudent, editStudent, deleteStudent} = useStudents();
+  const {subjects, fetchSubjects} = useSubjects();
   const [currentStudent, setCurrentStudent] = useState(null);
   const [openMessage, setOpenMessage] = useState(false);
 
@@ -21,6 +21,7 @@ const Alumnos = () => {
       setCurrentStudent(null);
     }
   }, [open])
+  useEffect(() => { if(!isLoading) fetchSubjects(); }, [isLoading]);
 
   useEffect(() => {
     if(isError){
@@ -28,7 +29,8 @@ const Alumnos = () => {
       setTimeout(() => setOpenMessage(false), 5000);        
     }
 
-  }, [isError])
+  }, [isError]);
+
 
   const handleEditStudent = (student) => {
     
@@ -43,6 +45,7 @@ const Alumnos = () => {
       editStudent(student);
     else
       addStudent(student);
+    
     setOpen(false);
     setOpenMessage(true);
   }
