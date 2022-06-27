@@ -60,11 +60,47 @@ namespace Alumnos.Core.Services
             }
         }
 
+        public async Task<Result> GetByFileNumber(int fileNumber)
+        {
+            try
+            {
+                var r = await _uow.StudentsRepository.FindByConditionAsync(x => x.FileNumber == fileNumber);
+                if (r.Count > 0)
+                {
+                    return Result<StudentDtoForDisplay>.SuccessResult(_entityMapper.StudentToStudentDtoForDisplay(r.First()));
+                }
+
+                return Result.FailureResult("Legajo de alumno inexistente", 404);
+            }
+            catch (Exception ex)
+            {
+                return Result.ErrorResult(new List<string> { ex.Message });
+            }
+        }
+
+        public async Task<Result> GetByDni(string dni)
+        {
+            try
+            {
+                var r = await _uow.StudentsRepository.FindByConditionAsync(x => x.Dni == dni);
+                if (r.Count > 0)
+                {
+                    return Result<StudentDtoForDisplay>.SuccessResult(_entityMapper.StudentToStudentDtoForDisplay(r.First()));
+                }
+
+                return Result.FailureResult("Dni de alumno inexistente", 404);
+            }
+            catch (Exception ex)
+            {
+                return Result.ErrorResult(new List<string> { ex.Message });
+            }
+        }
+
         public async Task<Result> Insert(StudentDtoForRegister dto)
         {
             try
             {
-                var r = await _uow.StudentsRepository.FindByConditionAsync(x => x.Name == dto.Name);
+                var r = await _uow.StudentsRepository.FindByConditionAsync(x => x.Dni == dto.Dni || x.FileNumber == dto.FileNumber);
                 if (r.Count > 0)
                 {
                     return Result.FailureResult("El Alumno ya existe en el sistema");
@@ -96,6 +132,9 @@ namespace Alumnos.Core.Services
                 {
                     student.Name = dto.Name;
                     student.Age = dto.Age;
+                    student.Dni = dto.Dni;
+                    student.FileNumber = dto.FileNumber;
+                    student.Address = dto.Address;
 
                     await _uow.SaveChangesAsync();
 

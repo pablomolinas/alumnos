@@ -11,7 +11,10 @@ namespace Alumnos.Core.Mapper
             var student =  new Student
             {
                 Name = dto.Name,
-                Age = dto.Age
+                Age = dto.Age,
+                Dni = dto.Dni,
+                FileNumber = dto.FileNumber,
+                Address = dto.Address,
             };
             
             
@@ -22,8 +25,24 @@ namespace Alumnos.Core.Mapper
         {
             return new Subject
                 {
-                    Name = dto.Name
+                    Name = dto.Name,
+                    Start = dto.Start.TimeOfDay,
+                    End = dto.End.TimeOfDay,
+                    MaxStudents = dto.MaxStudents
                 };            
+        }
+
+        public SubjectDtoForDisplay SubjectToSubjectDtoForDisplay(Subject subject)
+        {
+            return new SubjectDtoForDisplay
+            {
+                Id = subject.Id,
+                Name = subject.Name,
+                Start = subject.Start,
+                End = subject.End,
+                MaxStudents = subject.MaxStudents,
+                TotalStudents = subject.StudentsSubjects.Count,
+            };
         }
 
         public StudentDtoForDisplay StudentToStudentDtoForDisplay(Student student)
@@ -32,13 +51,16 @@ namespace Alumnos.Core.Mapper
             {
                 Id = student.Id,
                 Name = student.Name,
-                Age = student.Age
+                Age = student.Age,
+                Dni = student.Dni,
+                FileNumber = student.FileNumber,
+                Address = student.Address,
             };
 
-            var subjects = new List<Subject>();
+            var subjects = new List<SubjectDtoForDisplay>();
             foreach(var s in student.StudentsSubjects)
             {
-                subjects.Add(s.Subject);
+                subjects.Add(this.SubjectToSubjectDtoForDisplay(s.Subject));
             }
 
             dto.Subjects = subjects;

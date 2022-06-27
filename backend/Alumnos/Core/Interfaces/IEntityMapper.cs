@@ -8,5 +8,6 @@ namespace Alumnos.Core.Interfaces
         Student StudentDtoForRegisterToStudent(StudentDtoForRegister dto);
         Subject SubjectDtoForRegisterToSubject(SubjectDtoForRegister dto);
         StudentDtoForDisplay StudentToStudentDtoForDisplay(Student student);
+        SubjectDtoForDisplay SubjectToSubjectDtoForDisplay(Subject subject);
     }
 }

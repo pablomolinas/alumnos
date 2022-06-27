@@ -10,5 +10,7 @@ namespace Alumnos.Core.Interfaces
         Task<Result> Insert(SubjectDtoForRegister dto);
         Task<Result> Update(int id, SubjectDtoForRegister dto);
         Task<Result> Delete(int id);
+        Task<Result> GetTotalStudentsBySubjectId(int subjectId);
+        Task<Result> GetAllTotalStudents();
     }
 }

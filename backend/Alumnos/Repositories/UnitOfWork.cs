@@ -17,11 +17,11 @@ namespace Alumnos.Repositories
 
         #region Repositories
         private readonly IGenericRepository<Student> _studentsRepository;
-        private readonly IGenericRepository<Subject> _subjectsRepository;
+        private readonly ISubjectRepository _subjectsRepository;
         private readonly IGenericRepository<StudentSubject> _studentsSubjectsRepository;
         
         public IGenericRepository<Student> StudentsRepository => _studentsRepository ?? new GenericRepository<Student, AppDbContext>(_dbContext);
-        public IGenericRepository<Subject> SubjectsRepository => _subjectsRepository ?? new GenericRepository<Subject, AppDbContext>(_dbContext);
+        public ISubjectRepository SubjectsRepository => _subjectsRepository ?? new SubjectRepository(_dbContext);
         public IGenericRepository<StudentSubject> StudentsSubjectsRepository => _studentsSubjectsRepository ?? new GenericRepository<StudentSubject, AppDbContext>(_dbContext);
  
         #endregion

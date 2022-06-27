@@ -6,6 +6,10 @@ using Alumnos.Core.Interfaces;
 using Alumnos.Core.Services;
 using Alumnos.Core.Mapper;
 using System.Text.Json.Serialization;
+using FluentValidation;
+using Alumnos.Core.Models;
+using Alumnos.Core.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +36,14 @@ builder.Services.AddDbContext<AppDbContext>((services, options) => {
     options.UseLazyLoadingProxies();
 });
 
+builder.Services.AddFluentValidation(x =>
+{
+    x.DisableDataAnnotationsValidation = true;
+    x.RegisterValidatorsFromAssemblyContaining<StudentValidator>();
+    x.RegisterValidatorsFromAssemblyContaining<SubjectValidator>();
+});
 
+//builder.Services.AddScoped<IValidator<Student>, StudentValidator>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEntityMapper, EntityMapper>();
 builder.Services.AddScoped<IStudentsSubjectsService, StudentsSubjectsService>();

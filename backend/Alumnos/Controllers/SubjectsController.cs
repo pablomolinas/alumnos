@@ -29,6 +29,20 @@ namespace Alumnos.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpGet("totalStudents/{subjectId}")]
+        public async Task<IActionResult> GetTotalStudentsBySubjectId(int subjectId)
+        {
+            var result = await _subjectsService.GetTotalStudentsBySubjectId(subjectId);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("totalStudents/")]
+        public async Task<IActionResult> GetAllTotalStudents()
+        {
+            var result = await _subjectsService.GetAllTotalStudents();
+            return StatusCode(result.StatusCode, result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SubjectDtoForRegister dto)
         {

@@ -10,6 +10,7 @@ namespace Alumnos.Core.Interfaces
         Task<Result> Insert(StudentDtoForRegister dto);
         Task<Result> Update(int id, StudentDtoForRegister dto);
         Task<Result> Delete(int id);
-
+        Task<Result> GetByFileNumber(int fileNumber);
+        Task<Result> GetByDni(string dni);
     }
 }

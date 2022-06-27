@@ -1,5 +1,6 @@
 ﻿using Alumnos.Core.Interfaces;
 using Alumnos.Core.Models;
+using Alumnos.Core.Models.DTOs;
 using Alumnos.Core.Models.Response;
 using Alumnos.Repositories.Interfaces;
 
@@ -22,6 +23,14 @@ namespace Alumnos.Core.Services
             return ss;
         }
 
+        public async Task<int> GetTotalStudentsBySubjectId(int subjectId)
+        {
+
+            var ss = await _unitOfWork.StudentsSubjectsRepository.FindByConditionAsync(x => x.SubjectId == subjectId);
+            
+            return ss.Count;
+        }
+
         public async Task<Result> Insert(int StudentId, int SubjectId)
         {
             try
@@ -34,7 +43,7 @@ namespace Alumnos.Core.Services
             }
         }
 
-        public async Task<Result> InsertRange(int studentId, ICollection<Subject> subjects)
+        public async Task<Result> InsertRange(int studentId, ICollection<SubjectDtoForDisplay> subjects)
         {
             try
             {

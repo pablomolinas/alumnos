@@ -12,7 +12,7 @@ namespace Alumnos.Repositories
         protected DbSet<TEntity> dbSet;
         public GenericRepository(AppDbContext _dbContext)
         {
-            _dbContext = _dbContext;
+            this._dbContext = _dbContext;
             dbSet = _dbContext.Set<TEntity>();
         }
         public async Task<ICollection<TEntity>> FindAllAsync()

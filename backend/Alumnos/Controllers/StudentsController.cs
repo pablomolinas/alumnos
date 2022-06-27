@@ -30,6 +30,20 @@ namespace Alumnos.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        [HttpGet("dni/{dni}")]
+        public async Task<IActionResult> GetByDni(string dni)
+        {
+            var result = await _studentsService.GetByDni(dni);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("fileNumber/{fileNumber}")]
+        public async Task<IActionResult> GetByFileNumber(int fileNumber)
+        {
+            var result = await _studentsService.GetByFileNumber(fileNumber);
+            return StatusCode(result.StatusCode, result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] StudentDtoForRegister dto)
         {
